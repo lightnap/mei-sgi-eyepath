@@ -24,10 +24,12 @@ public class ToggleRay : MonoBehaviour
     private XRRayInteractor rayInteractor = null;
     private bool isSwitched = false;
     private InputDevice targetDevice;
+    private GameObject reticle; 
 
     private void Awake()
     {
         rayInteractor = GetComponent<XRRayInteractor>();
+        reticle = GetComponent<XRInteractorLineVisual>().reticle; 
         SwitchInteractors(false);
     }
 
@@ -98,5 +100,9 @@ public class ToggleRay : MonoBehaviour
         isSwitched = value;
         rayInteractor.enabled = value;
         directInteractor.enabled = !value;
+        if (reticle) 
+        {
+            reticle.SetActive(value); 
+        }
     }
 }
