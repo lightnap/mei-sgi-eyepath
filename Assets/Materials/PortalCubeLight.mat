@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_BrighterSelection
+  m_Name: PortalCubeLight
   m_Shader: {fileID: -6465566751694194690, guid: 89dc2cfa84155ab4296cce4527f13bcf,
     type: 3}
   m_ValidKeywords: []
@@ -52,7 +52,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Brightness: 5
+    - _Brightness: 4
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors: []
