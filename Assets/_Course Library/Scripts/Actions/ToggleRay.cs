@@ -63,8 +63,6 @@ public class ToggleRay : MonoBehaviour
         else if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 primary2DAxisValue)) // Only if device has such input. 
         {
 
-            Debug.Log("Found device");
-
             if (primary2DAxisValue.y >= AxisToPressThreshold &&  !isSwitched)
             {
                 ActivateRay();
