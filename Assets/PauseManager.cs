@@ -12,33 +12,52 @@ public class PauseManager : MonoBehaviour
         Pausing,
         Paused
     }
+    enum ePauseAudioClips
+    {
+        OnUnpause,
+        OnPausing,
+        OnPaused
+    }
 
-
+    // Interactors.
     public XRDirectInteractor m_leftDirectInteractor = null;
     public XRDirectInteractor m_rightDirectInteractor = null;
 
     public GameObject m_xrayInteractorLeft = null;
     public GameObject m_xrayInteractorRight = null;
-
-    public AudioSource pausedSound = null; 
-
-    public float m_timeToStartPause = 1.0f; // Time it takes to start pause once you press the button. 
-
-    public float m_MaxFogDensity = 0.5f;
-    private float m_CurrentFogDenisity = 0.0f; 
-
     private InputDevice m_targetDeviceRight;
     private InputDevice m_targetDeviceLeft;
 
+
+    // Audio.
+    public AudioSource pauseAudioSource = null; 
+
+    public AudioClip pausedClip; 
+    public AudioClip pausingClip; 
+    public AudioClip unPauseClip; 
+
+    // Timers.
+    public float m_timeToStartPause = 1.0f; // Time it takes to start pause once you press the button. 
+    private float m_startPauseTimer;
+
+    // Fog.
+    public float m_MaxFogDensity = 0.5f;
+    private float m_CurrentFogDenisity = 0.0f; 
+
+
+    // Inputs. 
     private bool m_leftButtonPressed = false;
     private bool m_rightButtonPressed = false; 
     private bool m_anyButtonPressed = false;
 
+    // States. 
     private eStates m_currentState = eStates.Running;
     private bool m_isPauseExitable = false;
     private bool m_isPauseEnterable = false; 
 
-    private float m_startPauseTimer;
+    // Pause canvas. 
+    private GameObject m_PauseCavas = null; 
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -127,8 +146,10 @@ public class PauseManager : MonoBehaviour
                 m_startPauseTimer = m_timeToStartPause;
                 if (m_anyButtonPressed && m_isPauseEnterable)
                 {
+                    // Go to pausing state. 
                     m_currentState = eStates.Pausing;
                     m_isPauseEnterable = false; 
+                    PlayAudio(ePauseAudioClips.OnPausing); 
                 }
                 break;
 
@@ -139,13 +160,20 @@ public class PauseManager : MonoBehaviour
                 m_CurrentFogDenisity = m_MaxFogDensity * (m_timeToStartPause - m_startPauseTimer) / m_timeToStartPause; 
                 if (!m_anyButtonPressed)
                 {
+                    // Go to unpaused state
                     m_currentState = eStates.Running;
+                    DestroyPauseCanvas(); 
+                    StopAudio(); 
                 }
                 else if (m_startPauseTimer <= 0)
                 {
+                    // Go to paused state. 
                     m_currentState = eStates.Paused;
                     m_startPauseTimer = m_timeToStartPause;
                     m_isPauseExitable = false;
+                    InstantiatePauseCanvas(); 
+                    PlayAudio(ePauseAudioClips.OnPaused); 
+
                 }
                 break;
 
@@ -161,8 +189,11 @@ public class PauseManager : MonoBehaviour
                 }
                 if (m_anyButtonPressed && m_isPauseExitable)
                 {
+                    // Go to unpaused.
                     m_currentState = eStates.Running;
                     m_isPauseExitable = false;
+                    DestroyPauseCanvas(); 
+                    PlayAudio(ePauseAudioClips.OnUnpause); 
                 }
                 break;
         }
@@ -189,6 +220,70 @@ public class PauseManager : MonoBehaviour
             {
                 m_rightDirectInteractor.enabled = false;
             }
+        }
+    }
+
+    // Load pause prefab from resource. 
+    void InstantiatePauseCanvas()
+    {
+        if(m_PauseCavas == null)
+        {
+            m_PauseCavas = Instantiate(Resources.Load("Prefabs/PauseCanvas", typeof(GameObject))) as GameObject;
+
+            // Get into the right position
+
+            m_PauseCavas.SetActive(true); 
+        }
+    }
+
+    // Destroy pause prefab. 
+    void DestroyPauseCanvas()
+    {
+        if(m_PauseCavas != null)
+        {
+            m_PauseCavas.SetActive(false); 
+            Destroy(m_PauseCavas); 
+        }
+    }
+
+    void PlayAudio(ePauseAudioClips aCurrentClip)
+    {
+        if (pauseAudioSource != null)
+        {
+            AudioClip aClip = null; 
+
+            switch (aCurrentClip)
+            {
+                case ePauseAudioClips.OnUnpause: 
+                    aClip = unPauseClip;
+                    break; 
+
+                case ePauseAudioClips.OnPausing: 
+                    aClip = pausingClip;
+                    break;
+
+                case ePauseAudioClips.OnPaused: 
+                    aClip = pausedClip;
+                    break;
+            }
+            if(pauseAudioSource != null && aClip != null)
+            {
+                //AudioClip oldClip;
+                //oldClip = pauseAudioSource.clip; 
+
+                pauseAudioSource.clip = aClip; 
+                pauseAudioSource.Play(); 
+
+                //pauseAudioSource.clip = oldClip; 
+            }
+        }
+    }
+
+    void StopAudio()
+    {
+        if (pauseAudioSource != null)
+        {
+            pauseAudioSource.Stop(); 
         }
     }
 }
