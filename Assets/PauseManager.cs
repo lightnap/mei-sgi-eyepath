@@ -56,8 +56,10 @@ public class PauseManager : MonoBehaviour
     private bool m_isPauseEnterable = false; 
 
     // Pause canvas. 
-    private GameObject m_PauseCavas = null; 
- 
+    public GameObject m_PauseCanvas = null;
+    public Transform headTransform = null;
+    public float spawnDistance = 1.0f; 
+
 
     // Start is called before the first frame update
     void Start()
@@ -171,7 +173,8 @@ public class PauseManager : MonoBehaviour
                     m_currentState = eStates.Paused;
                     m_startPauseTimer = m_timeToStartPause;
                     m_isPauseExitable = false;
-                    InstantiatePauseCanvas(); 
+                    InstantiatePauseCanvas();
+                    StopAudio(); 
                     PlayAudio(ePauseAudioClips.OnPaused); 
 
                 }
@@ -190,15 +193,21 @@ public class PauseManager : MonoBehaviour
                 if (m_anyButtonPressed && m_isPauseExitable)
                 {
                     // Go to unpaused.
-                    m_currentState = eStates.Running;
-                    m_isPauseExitable = false;
-                    DestroyPauseCanvas(); 
-                    PlayAudio(ePauseAudioClips.OnUnpause); 
+                    UnPause(); 
                 }
                 break;
         }
 
         RenderSettings.fogDensity = m_CurrentFogDenisity; 
+    }
+
+    // Go to unpaused. 
+    public void UnPause() 
+    {
+        m_currentState = eStates.Running;
+        m_isPauseExitable = false;
+        DestroyPauseCanvas();
+        PlayAudio(ePauseAudioClips.OnUnpause);
     }
 
     void EnableComponents(bool aEnable) 
@@ -226,24 +235,26 @@ public class PauseManager : MonoBehaviour
     // Load pause prefab from resource. 
     void InstantiatePauseCanvas()
     {
-        if(m_PauseCavas == null)
-        {
-            m_PauseCavas = Instantiate(Resources.Load("Prefabs/PauseCanvas", typeof(GameObject))) as GameObject;
 
-            // Get into the right position
+        //m_PauseCanvas = Instantiate(Resources.Load("Prefabs/PauseCanvas", typeof(GameObject))) as GameObject;
 
-            m_PauseCavas.SetActive(true); 
-        }
+        m_PauseCanvas.transform.position = headTransform.position + new Vector3(headTransform.forward.x, 0, headTransform.forward.z).normalized * spawnDistance;
+        m_PauseCanvas.transform.LookAt(new Vector3(headTransform.position.x, m_PauseCanvas.transform.position.y, headTransform.position.z));
+        m_PauseCanvas.transform.forward *= -1; 
+            
+        // Get into the right position
+
+        m_PauseCanvas.SetActive(true); 
+        
     }
 
     // Destroy pause prefab. 
     void DestroyPauseCanvas()
     {
-        if(m_PauseCavas != null)
-        {
-            m_PauseCavas.SetActive(false); 
-            Destroy(m_PauseCavas); 
-        }
+
+        m_PauseCanvas.SetActive(false); 
+        //Destroy(m_PauseCanvas); 
+        
     }
 
     void PlayAudio(ePauseAudioClips aCurrentClip)
