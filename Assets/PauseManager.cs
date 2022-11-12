@@ -58,7 +58,11 @@ public class PauseManager : MonoBehaviour
     // Pause canvas. 
     public GameObject m_PauseCanvas = null;
     public Transform headTransform = null;
-    public float spawnDistance = 1.0f; 
+    public float spawnDistance = 1.0f;
+    public GameObject PauseBackground = null;
+    public GameObject ControlsBackground = null;
+    public GameObject OptionsBackground = null;
+    public GameObject ConfirmBackground = null; 
 
 
     // Start is called before the first frame update
@@ -240,8 +244,13 @@ public class PauseManager : MonoBehaviour
 
         m_PauseCanvas.transform.position = headTransform.position + new Vector3(headTransform.forward.x, 0, headTransform.forward.z).normalized * spawnDistance;
         m_PauseCanvas.transform.LookAt(new Vector3(headTransform.position.x, m_PauseCanvas.transform.position.y, headTransform.position.z));
-        m_PauseCanvas.transform.forward *= -1; 
-            
+        m_PauseCanvas.transform.forward *= -1;
+
+        PauseBackground.SetActive(true); 
+        ControlsBackground.SetActive(false);
+        OptionsBackground.SetActive(false);
+        ConfirmBackground.SetActive(false); 
+
         // Get into the right position
 
         m_PauseCanvas.SetActive(true); 
