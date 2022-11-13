@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 858ad821721b530438c4261e51e3231f
+  - enabled: 1
+    path: Assets/Scenes/TeleportAndGrabTest.unity
+    guid: 4e906f94665170848b847e493a3f1159
+  - enabled: 0
     path: Assets/Scenes/Create-with-VR-Starter-Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:

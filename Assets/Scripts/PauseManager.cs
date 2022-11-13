@@ -144,7 +144,6 @@ public class PauseManager : MonoBehaviour
                     m_isPauseEnterable = true; 
                 }
 
-                Debug.Log("Running");
                 EnableComponents(true);
 
                 m_CurrentFogDenisity = 0.0f; 
@@ -160,7 +159,7 @@ public class PauseManager : MonoBehaviour
                 break;
 
             case eStates.Pausing:
-                Debug.Log("Pausing");
+
                 m_startPauseTimer -= Time.deltaTime;
 
                 m_CurrentFogDenisity = m_MaxFogDensity * (m_timeToStartPause - m_startPauseTimer) / m_timeToStartPause; 
@@ -185,7 +184,6 @@ public class PauseManager : MonoBehaviour
                 break;
 
             case eStates.Paused:
-                Debug.Log("Paused");
 
                 m_CurrentFogDenisity = m_MaxFogDensity;
                 EnableComponents(false); 
