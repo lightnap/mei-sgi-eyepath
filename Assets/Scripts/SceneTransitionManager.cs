@@ -21,6 +21,7 @@ public class SceneTransitionManager : MonoBehaviour
         // Launch the new scene. 
         AsyncOperation operation = SceneManager.LoadSceneAsync(aSceneIndex);
         operation.allowSceneActivation = false;
+
         float timer = 0.0f; 
         while (timer <= fadeScreen.fadeDuration && !operation.isDone) 
         {
