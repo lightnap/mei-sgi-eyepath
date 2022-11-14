@@ -8,8 +8,13 @@ public class HandPresence : MonoBehaviour
     public bool showController = false; 
     public InputDeviceCharacteristics controllerCharacteristics; 
     public List<GameObject> controllerPrefabs;
-    public GameObject handModelPrefab; 
+    public GameObject handModelPrefab;
 
+    // Materials.
+    public Material mTransparentMaterial;
+    public Material mSolidMaterial; 
+
+    // Other.
     private InputDevice targetDevice;
     private GameObject spawnedController;
     private GameObject spawnedHandModel;
@@ -106,6 +111,39 @@ public class HandPresence : MonoBehaviour
             }
         }
     }
+
+    public void SetMaterialTransparent() 
+    {
+
+        Debug.Log("Setting tranpsarent /" + spawnedHandModel.name); 
+        if (spawnedHandModel.name == "Right Hand Model(Clone)")
+        {
+            Debug.Log("Set right transparent");
+            spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
+        }
+        else if (spawnedHandModel.name == "Left Hand Model(Clone)") 
+        {
+            Debug.Log("Set left transparent");
+            spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
+        }
+    }
+
+
+
+    public void SetMaterialSolid()
+    {
+        if (spawnedHandModel.name == "Right Hand Model(Clone)")
+        {
+            Debug.Log("Set right solid");
+            spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
+        }
+        else if (spawnedHandModel.name == "Left Hand Model(Clone)")
+        {
+            Debug.Log("Set left solid");
+            spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
+        }
+    }
+
 
     void DebugInputs() 
     {

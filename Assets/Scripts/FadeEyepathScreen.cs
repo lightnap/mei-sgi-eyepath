@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FadeScreen : MonoBehaviour
+public class FadeEyepathScreen : MonoBehaviour
 {
     public bool fadeOnStart = true;
     public float fadeDuration = 2.0f;

@@ -144,7 +144,7 @@ public class PauseManager : MonoBehaviour
                     m_isPauseEnterable = true; 
                 }
 
-                EnableComponents(true);
+               
 
                 m_CurrentFogDenisity = 0.0f; 
 
@@ -167,7 +167,8 @@ public class PauseManager : MonoBehaviour
                 {
                     // Go to unpaused state
                     m_currentState = eStates.Running;
-                    DestroyPauseCanvas(); 
+                    DestroyPauseCanvas();
+                    EnableComponents(true);
                     StopAudio(); 
                 }
                 else if (m_startPauseTimer <= 0)
@@ -210,6 +211,7 @@ public class PauseManager : MonoBehaviour
         m_isPauseExitable = false;
         DestroyPauseCanvas();
         PlayAudio(ePauseAudioClips.OnUnpause);
+        EnableComponents(true);
     }
 
     void EnableComponents(bool aEnable) 
