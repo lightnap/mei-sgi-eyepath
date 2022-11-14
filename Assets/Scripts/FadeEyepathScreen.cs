@@ -5,9 +5,13 @@ using UnityEngine;
 public class FadeEyepathScreen : MonoBehaviour
 {
     public bool fadeOnStart = true;
-    public float fadeDuration = 2.0f;
+    public float fullFadeDuration = 2.0f;
+
     public Color fadeColor;
-    private Renderer rend; 
+    private Renderer rend;
+    
+    private float mCurrentLerp = 0.0f; 
+    private float mCurrentFadeDuration = 2.0f; 
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +28,18 @@ public class FadeEyepathScreen : MonoBehaviour
     public void FadeIn() 
     {
         Debug.Log("StartFadeIn"); 
-        Fade(1.0f, 0.0f);
+        StopAllCoroutines(); 
+        mCurrentFadeDuration = mCurrentLerp * fullFadeDuration; 
+        Fade(mCurrentLerp, 0.0f);
     }
 
     public void FadeOut() 
     {
         Debug.Log("StartFadeOut");
-        Fade(0.0f, 1.0f); 
+        StopAllCoroutines(); 
+        mCurrentFadeDuration = (1.0f - mCurrentLerp)  * fullFadeDuration; 
+        Fade(mCurrentLerp, 1.0f); 
+        
     }
 
     public void Fade(float aAlphaIn, float aAlphaOut)
@@ -44,14 +53,16 @@ public class FadeEyepathScreen : MonoBehaviour
         Color newColor = fadeColor;
         rend.enabled = true;
 
-        while (timer <= fadeDuration) 
+        while (timer <= mCurrentFadeDuration) 
         {
-            newColor.a = Mathf.Lerp(aAlphhaIn, aAlphaOut, timer / fadeDuration);
+            mCurrentLerp = Mathf.Lerp(aAlphhaIn, aAlphaOut, timer / mCurrentFadeDuration);
+            newColor.a = mCurrentLerp;
             rend.material.SetColor("_Color", newColor);
             timer += Time.deltaTime; 
             yield return null;
         }
-        newColor.a = aAlphaOut;
+        mCurrentLerp = aAlphaOut;
+        newColor.a = mCurrentLerp;
         rend.material.SetColor("_Color", newColor);
         if (aAlphaOut < 0.1f) 
         {
