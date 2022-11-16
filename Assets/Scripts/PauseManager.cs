@@ -28,6 +28,8 @@ public class PauseManager : MonoBehaviour
     private InputDevice m_targetDeviceRight;
     private InputDevice m_targetDeviceLeft;
 
+    public GameObject m_LeftEyepathTrigger = null; 
+
 
     // Audio.
     public AudioSource pauseAudioSource = null; 
@@ -218,6 +220,7 @@ public class PauseManager : MonoBehaviour
     {
         m_xrayInteractorLeft.SetActive(aEnable);
         m_xrayInteractorRight.SetActive(aEnable);
+        m_LeftEyepathTrigger.SetActive(aEnable); 
         if (aEnable)
         {
             m_leftDirectInteractor.enabled = true;
