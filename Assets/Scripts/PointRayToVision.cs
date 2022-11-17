@@ -66,15 +66,20 @@ public class PointRayToVision : MonoBehaviour
         }
         else 
         {
-            UpdateOrientation();
+            if (mCurrentSide == eSides.Left && m_targetDeviceEye.TryGetFeatureValue(CommonUsages.leftEyePosition, out Vector3 leftEyePosition))
+            {
+                UpdateOrientation(leftEyePosition);
+            }
+            if (mCurrentSide == eSides.Left && m_targetDeviceEye.TryGetFeatureValue(CommonUsages.leftEyePosition, out Vector3 rightEyePosition))
+            {
+                UpdateOrientation(rightEyePosition);
+            }
         } 
     }
 
-    void UpdateOrientation()
+    void UpdateOrientation(Vector3 eyePosition)
     {
-        if (m_targetDeviceEye.TryGetFeatureValue(CommonUsages.leftEyePosition, out Vector3 eyePosition) && 
-            m_targetDeviceHand.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 handPosition)
-        )
+        if (m_targetDeviceHand.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 handPosition))
         {
             Vector3 DirectionVector = new Vector3 (1.0f,0.0f,0.0f);
             DirectionVector = handPosition - eyePosition;

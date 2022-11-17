@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScene.unity
     guid: 858ad821721b530438c4261e51e3231f
   - enabled: 1
+    path: Assets/Scenes/EyepathTest.unity
+    guid: f377160d981a60448bc422b44f462048
+  - enabled: 0
     path: Assets/Scenes/TeleportAndGrabTest.unity
     guid: 4e906f94665170848b847e493a3f1159
   - enabled: 0
