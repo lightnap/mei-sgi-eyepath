@@ -119,9 +119,7 @@ public class HandPresence : MonoBehaviour
             if (spawnedHandModel.name == "Right Hand Model(Clone)")
             {
                 Debug.Log("Set right transparent");
-                GameObject hand = spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject;
-                Debug.Log("hand game object /" + hand.name);
-                //hand.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
+                spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
             }
             else if (spawnedHandModel.name == "Left Hand Model(Clone)")
             {
