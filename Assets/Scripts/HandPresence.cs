@@ -114,17 +114,20 @@ public class HandPresence : MonoBehaviour
 
     public void SetMaterialTransparent() 
     {
-
-        Debug.Log("Setting tranpsarent /" + spawnedHandModel.name); 
-        if (spawnedHandModel.name == "Right Hand Model(Clone)")
+        if (spawnedHandModel != null) 
         {
-            Debug.Log("Set right transparent");
-            spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
-        }
-        else if (spawnedHandModel.name == "Left Hand Model(Clone)") 
-        {
-            Debug.Log("Set left transparent");
-            spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
+            if (spawnedHandModel.name == "Right Hand Model(Clone)")
+            {
+                Debug.Log("Set right transparent");
+                GameObject hand = spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject;
+                Debug.Log("hand game object /" + hand.name);
+                //hand.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
+            }
+            else if (spawnedHandModel.name == "Left Hand Model(Clone)")
+            {
+                Debug.Log("Set left transparent");
+                spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
+            }
         }
     }
 
@@ -132,15 +135,18 @@ public class HandPresence : MonoBehaviour
 
     public void SetMaterialSolid()
     {
-        if (spawnedHandModel.name == "Right Hand Model(Clone)")
+        if (spawnedHandModel != null) 
         {
-            Debug.Log("Set right solid");
-            spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
-        }
-        else if (spawnedHandModel.name == "Left Hand Model(Clone)")
-        {
-            Debug.Log("Set left solid");
-            spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
+            if (spawnedHandModel.name == "Right Hand Model(Clone)")
+            {
+                Debug.Log("Set right solid");
+                spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
+            }
+            else if (spawnedHandModel.name == "Left Hand Model(Clone)")
+            {
+                Debug.Log("Set left solid");
+                spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
+            }
         }
     }
 
