@@ -19,6 +19,14 @@ public class PauseManager : MonoBehaviour
         OnPaused
     }
 
+    enum eSides 
+    {
+        Left,
+        Right
+    }
+    private eSides m_currentSide = eSides.Left;
+
+
     // Interactors.
     public XRDirectInteractor m_leftDirectInteractor = null;
     public XRDirectInteractor m_rightDirectInteractor = null;
@@ -28,7 +36,10 @@ public class PauseManager : MonoBehaviour
     private InputDevice m_targetDeviceRight;
     private InputDevice m_targetDeviceLeft;
 
-    public GameObject m_LeftEyepathTrigger = null; 
+    public GameObject m_LeftEyepathTrigger = null;
+    public GameObject m_RightEyepathTrigger = null;
+    public GameObject m_LeftEyepathGrab = null;
+    public GameObject m_RightEyepathGrab = null; 
 
 
     // Audio.
@@ -220,11 +231,21 @@ public class PauseManager : MonoBehaviour
     {
         m_xrayInteractorLeft.SetActive(aEnable);
         m_xrayInteractorRight.SetActive(aEnable);
-        m_LeftEyepathTrigger.SetActive(aEnable); 
+        
         if (aEnable)
         {
             m_leftDirectInteractor.enabled = true;
             m_rightDirectInteractor.enabled = true;
+            if (m_currentSide == eSides.Left) 
+            {
+                m_LeftEyepathTrigger.SetActive(true);
+                m_LeftEyepathGrab.SetActive(true);
+            }
+            if (m_currentSide == eSides.Right) 
+            {
+                m_RightEyepathTrigger.SetActive(true);
+                m_RightEyepathGrab.SetActive(true);
+            }
         }
         else
         {
@@ -236,6 +257,10 @@ public class PauseManager : MonoBehaviour
             {
                 m_rightDirectInteractor.enabled = false;
             }
+            m_LeftEyepathTrigger.SetActive(false);
+            m_RightEyepathTrigger.SetActive(false);
+            m_LeftEyepathGrab.SetActive(false);
+            m_RightEyepathGrab.SetActive(false);
         }
     }
 
@@ -307,6 +332,29 @@ public class PauseManager : MonoBehaviour
         if (pauseAudioSource != null)
         {
             pauseAudioSource.Stop(); 
+        }
+    }
+
+    void SetEyepathLeft() 
+    {
+        m_currentSide = eSides.Left; 
+    }
+
+    void SetEyepathRight()
+    {
+        m_currentSide = eSides.Right;
+    }
+
+    // True = right, false = left. 
+    public void SetRightLeft(bool aSide) 
+    {
+        if (aSide)
+        {
+            SetEyepathRight();
+        }
+        else 
+        {
+            SetEyepathLeft();
         }
     }
 }
