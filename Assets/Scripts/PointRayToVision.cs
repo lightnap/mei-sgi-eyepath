@@ -21,13 +21,12 @@ public class PointRayToVision : MonoBehaviour
     private InputDevice m_targetDeviceHand;
     private InputDevice m_targetDeviceEye;
 
-    private Vector3 mInitialRotation = new Vector3(0.0f, 0.0f, 0.0f); 
+    public Transform XRrig = null; 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        mInitialRotation = transform.localEulerAngles; 
         TryInitialize(); 
     }
 
@@ -70,7 +69,7 @@ public class PointRayToVision : MonoBehaviour
             {
                 UpdateOrientation(leftEyePosition);
             }
-            if (mCurrentSide == eSides.Left && m_targetDeviceEye.TryGetFeatureValue(CommonUsages.leftEyePosition, out Vector3 rightEyePosition))
+            if (mCurrentSide == eSides.Right && m_targetDeviceEye.TryGetFeatureValue(CommonUsages.rightEyePosition, out Vector3 rightEyePosition))
             {
                 UpdateOrientation(rightEyePosition);
             }
@@ -84,8 +83,12 @@ public class PointRayToVision : MonoBehaviour
             Vector3 DirectionVector = new Vector3 (1.0f,0.0f,0.0f);
             DirectionVector = handPosition - eyePosition;
             DirectionVector.Normalize(); 
-            transform.LookAt(transform.position + DirectionVector); 
-            transform.Rotate(mInitialRotation); 
+            
+            // Add rotation of rig (due to snap turns) 
+            float RotationY = XRrig.eulerAngles.y;
+
+            DirectionVector = Quaternion.AngleAxis(RotationY, Vector3.up) * DirectionVector;
+            transform.LookAt(transform.position + DirectionVector);
         }
     }
 
