@@ -118,12 +118,12 @@ public class HandPresence : MonoBehaviour
         {
             if (spawnedHandModel.name == "Right Hand Model(Clone)")
             {
-                Debug.Log("Set right transparent");
+                //Debug.Log("Set right transparent");
                 spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
             }
             else if (spawnedHandModel.name == "Left Hand Model(Clone)")
             {
-                Debug.Log("Set left transparent");
+                //Debug.Log("Set left transparent");
                 spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mTransparentMaterial;
             }
         }
@@ -137,12 +137,12 @@ public class HandPresence : MonoBehaviour
         {
             if (spawnedHandModel.name == "Right Hand Model(Clone)")
             {
-                Debug.Log("Set right solid");
+                //Debug.Log("Set right solid");
                 spawnedHandModel.transform.Find("hands:hands_geom/hands:Rhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
             }
             else if (spawnedHandModel.name == "Left Hand Model(Clone)")
             {
-                Debug.Log("Set left solid");
+                //Debug.Log("Set left solid");
                 spawnedHandModel.transform.Find("hands:hands_geom/hands:Lhand").gameObject.GetComponent<SkinnedMeshRenderer>().material = mSolidMaterial;
             }
         }

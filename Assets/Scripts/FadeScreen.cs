@@ -23,13 +23,13 @@ public class FadeScreen : MonoBehaviour
 
     public void FadeIn() 
     {
-        Debug.Log("StartFadeIn"); 
+        //Debug.Log("StartFadeIn"); 
         Fade(1.0f, 0.0f);
     }
 
     public void FadeOut() 
     {
-        Debug.Log("StartFadeOut");
+        //Debug.Log("StartFadeOut");
         Fade(0.0f, 1.0f); 
     }
 

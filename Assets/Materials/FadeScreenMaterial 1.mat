@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FadeScreenMaterial
+  m_Name: FadeScreenMaterial 1
   m_Shader: {fileID: 4800000, guid: e5d9b5fdbe436864c92b658cf9ab54ef, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:

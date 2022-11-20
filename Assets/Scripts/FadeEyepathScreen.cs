@@ -27,19 +27,25 @@ public class FadeEyepathScreen : MonoBehaviour
 
     public void FadeIn() 
     {
-        Debug.Log("StartFadeIn"); 
+        //Debug.Log("StartFadeIn"); 
         StopAllCoroutines(); 
-        mCurrentFadeDuration = mCurrentLerp * fullFadeDuration; 
-        Fade(mCurrentLerp, 0.0f);
+        mCurrentFadeDuration = mCurrentLerp * fullFadeDuration;
+        StartCoroutine(FadeInWithWait());
     }
 
     public void FadeOut() 
     {
-        Debug.Log("StartFadeOut");
+        //Debug.Log("StartFadeOut");
         StopAllCoroutines(); 
-        mCurrentFadeDuration = (1.0f - mCurrentLerp)  * fullFadeDuration; 
-        Fade(mCurrentLerp, 1.0f); 
+        mCurrentFadeDuration = (1.0f - mCurrentLerp)  * fullFadeDuration;
+        Fade(mCurrentLerp, 1.0f);
         
+    }
+
+    public IEnumerator FadeInWithWait() 
+    {
+        yield return new WaitForSeconds(mCurrentFadeDuration);
+        Fade(mCurrentLerp, 0.0f);
     }
 
     public void Fade(float aAlphaIn, float aAlphaOut)
