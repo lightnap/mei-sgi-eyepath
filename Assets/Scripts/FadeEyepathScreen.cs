@@ -44,6 +44,10 @@ public class FadeEyepathScreen : MonoBehaviour
 
     public IEnumerator FadeInWithWait() 
     {
+        if (mCurrentFadeDuration == float.NaN) 
+        {
+            mCurrentFadeDuration = fullFadeDuration; 
+        }
         yield return new WaitForSeconds(mCurrentFadeDuration);
         Fade(mCurrentLerp, 0.0f);
     }
