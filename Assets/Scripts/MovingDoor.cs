@@ -10,7 +10,7 @@ public class MovingDoor : MonoBehaviour
     private float m_CurrentMoveTime;
 
     private float m_MinHeight;
-    private float m_MaxHeight;
+    [SerializeField] private float m_MaxHeight = 3.0f;
     private float m_CurrentHeight;
 
     private AudioSource m_Audio = null;
@@ -18,7 +18,6 @@ public class MovingDoor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_MaxHeight = 3.0f;
         m_MinHeight = m_ChildTransform.localPosition.y;
         m_CurrentHeight = m_MinHeight;
         m_CurrentMoveTime = m_FullMoveTime;
@@ -28,20 +27,26 @@ public class MovingDoor : MonoBehaviour
 
     public void OpenDoor()
     {
-        m_Audio.Stop();
+        if (m_Audio != null) 
+        {
+            m_Audio.Stop();
+            m_Audio.Play();
+        }
         StopAllCoroutines();
         //m_CurrentMoveTime = (m_MaxHeight - m_CurrentHeight) / (m_MaxHeight - m_MinHeight) * m_FullMoveTime;
         Move(m_CurrentHeight, m_MaxHeight);
-        m_Audio.Play(); 
     }
 
     public void CloseDoor() 
     {
-        m_Audio.Stop();
+        if (m_Audio != null)
+        {
+            m_Audio.Stop();
+            m_Audio.Play();
+        }
         StopAllCoroutines();
         //m_CurrentMoveTime = m_CurrentHeight / (m_MaxHeight - m_MinHeight) * m_FullMoveTime;
         Move(m_CurrentHeight, m_MinHeight);
-        m_Audio.Play();
     }
 
     void Move(float aCurrentHeight, float aGoalHeight) 

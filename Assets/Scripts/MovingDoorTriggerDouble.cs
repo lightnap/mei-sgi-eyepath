@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingDoorTrigger : MonoBehaviour
+public class MovingDoorTriggerDouble : MonoBehaviour
 {
-    [SerializeField] private MovingDoor m_Door;
+    [SerializeField] private MovingDoor m_DoorStartsClosed;
+    [SerializeField] private MovingDoor m_DoorStartsOpen;
 
     private int m_EyepathLayerIndex;
     private bool m_isColliding = false;
@@ -13,6 +14,7 @@ public class MovingDoorTrigger : MonoBehaviour
     void Start()
     {
         m_EyepathLayerIndex = LayerMask.NameToLayer("Eyepath");
+        m_DoorStartsOpen.OpenDoor(); 
     }
 
    void OnTriggerEnter(Collider other) 
@@ -20,8 +22,8 @@ public class MovingDoorTrigger : MonoBehaviour
         if (other.gameObject.layer == m_EyepathLayerIndex && !m_isColliding) 
         {
             m_isColliding = true;
-            m_Door.OpenDoor(); 
-
+            m_DoorStartsClosed.OpenDoor();
+            m_DoorStartsOpen.CloseDoor();
             //Debug.Log("Entered trigger");
         }
     }
@@ -31,7 +33,8 @@ public class MovingDoorTrigger : MonoBehaviour
         if (other.gameObject.layer == m_EyepathLayerIndex && m_isColliding)
         {
             m_isColliding = false;
-            m_Door.CloseDoor();
+            m_DoorStartsClosed.CloseDoor();
+            m_DoorStartsOpen.OpenDoor();
             //Debug.Log("Exited trigger");
         }
     }
