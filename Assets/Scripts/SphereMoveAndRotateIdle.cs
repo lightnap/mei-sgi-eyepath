@@ -39,6 +39,6 @@ public class SphereMoveAndRotateIdle : MonoBehaviour
         }
 
         transform.localPosition = new Vector3 (transform.localPosition.x,  mFloatDistance * Mathf.Sin(Mathf.Deg2Rad * mHeight), transform.localPosition.z);
-        transform.eulerAngles = new Vector3 (transform.rotation.x, mRotation, transform.rotation.z); 
+        transform.localEulerAngles = new Vector3 (transform.rotation.x, mRotation, transform.rotation.z); 
     }
 }
