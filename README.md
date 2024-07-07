@@ -1,4 +1,4 @@
-#Eyepath
+# Eyepath
 
 This is a small VR project developed for the Interacrive Graphical Systems course in the Master if Informathics Engeneering on the UPC school. 
 
