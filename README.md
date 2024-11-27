@@ -6,6 +6,8 @@ This is a small VR puzzle game whose main mechaninc is that when you cover one e
 
 ![Main mechanic](eyepath_main_mechanic.gif)
 
+Covering one eye with a hand stops the corresponding screen of the vr glasses so that you may reach and grab for far away objects without seeing double. 
+
 The story revolved around going to these mysterious ruins that your friends was investigating where you gained these powers. 
 
 ![The entrance to the ruins](eyepath_1.png)
